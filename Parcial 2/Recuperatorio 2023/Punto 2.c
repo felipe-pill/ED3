@@ -124,16 +124,13 @@ void configDMA(uint8_t bloque){
 
     switch (bloque) {
         case 1:
-            configDMA(counter);
-            DAC_SetDMATimeOut(400 / 60 * BLOCK_SIZE)                                      // 400 kHz
-            break;                                                                          // timeout de 6 ms, que es < settlingTime
+            congifDMA.SrcMemAddres = DIRECCION_BLOQUE_0;
+            break;                                                                         
         case 2:
-            configDMA(counter);
-            DAC_SetDMATimeOut(400 / 120 * BLOCK_SIZE)                                      // 400 kHz
+            congifDMA.SrcMemAddres = DIRECCION_BLOQUE_1;
             break;       
         case 3:
-            configDMA(counter);
-            DAC_SetDMATimeOut(400000 / 450 * BLOCK_SIZE)                                      // timeout de 868 us
+            congifDMA.SrcMemAddres = DIRECCION_BLOQUE_2;
             break;       
         default:
             // Manejo opcional de errores o casos imprevistos
@@ -166,25 +163,18 @@ void EINT0_IRQHandler(void){
 
     switch (counter) {
         case 1:
-            configDMA(counter);          // Función que configura el DMA
-            
-            DAC_SetDMATimeOut(LPC_DAC, 25000 / () );  // Función que ajusta el timeout del DAC
-            DAC_SetBias(LPC_DAC, 1);                               // Bajo consumo. Settling time 2.5 useg, rate maximo de 400 kHz
-
-            break;
-
+          case 1:
+            configDMA(counter);
+            DAC_SetDMATimeOut(400 / 60 * BLOCK_SIZE)                                      // 400 kHz
+            break;                                                                          // timeout de 6 ms, que es < settlingTime
         case 2:
-            // Agregar el código correspondiente al caso 2
-            break;
-
+            configDMA(counter);
+            DAC_SetDMATimeOut(400 / 120 * BLOCK_SIZE)                                      // 400 kHz
+            break;       
         case 3:
-            // Agregar el código correspondiente al caso 3
-            break;
-
-        case 4:
-            counter = 0;  // Resetear el contador después de llegar a 4
-            break;
-
+            configDMA(counter);
+            DAC_SetDMATimeOut(400000 / 450 * BLOCK_SIZE)                                      // timeout de 868 us
+            break;       
         default:
             // Manejo opcional de errores o casos imprevistos
             break;
