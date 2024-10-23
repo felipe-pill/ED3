@@ -99,7 +99,7 @@ void configT1(uint16_t dutty_actual) {
   
     TIM_TIMERCFG_Type timer1;
     timer1.PrescaleOption = TIM_PRESCALE_USVAL;
-    timer1.PrescaleValue = 1000000; // Se cuenta cada 1 segundo
+    timer1.PrescaleValue = 1; // Se cuenta cada 1 usegundo
 
     TIM_MATCHCFG_Type match1;
     match1.MatchChannel = 1;
@@ -108,8 +108,8 @@ void configT1(uint16_t dutty_actual) {
     match1.StopOnMatch = DISABLE; // Que no se detenga el timer
 
     //Periodo de 20K --> 0.00005s la duracion total de la señal    
-    uint8_t t_alto_PWM = dutty_actual * 0.00005 / 100; // Calculamos que tiempo va a estar en alto
-    uint8_t t_bajo_PWM = 0.00005 - t_alto_PWM; // Calculamos que tiempo va a estar en bajo
+    uint8_t t_alto_PWM = dutty_actual * 50 / 100; // Calculamos que tiempo va a estar en alto
+    uint8_t t_bajo_PWM = 50 - t_alto_PWM; // Calculamos que tiempo va a estar en bajo
 
     // Arranca en alto, el match corresponde hasta que momento debe mantenerse asi
     match1.MatchValue = t_alto_PWM;
